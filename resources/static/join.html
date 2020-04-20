@@ -78,21 +78,29 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id ="a-first" href="join.html">join</a></li>
-      <li><a id ="a-second"href="#">login</a></li>
+      <li><a id ="a-first" href="#">join</a></li>
+      <li><a id ="a-second"href="index.html">login</a></li>
       <li><a id ="a-third" href="#">...</a></li>
+ 
+      
     </ul>
   </nav>
   
   <article>
   <form action="#">
-  	<label> ID </label> <br>
-  	<input></input> <br>
-  	<label>PASSWORD</label> <br>
-  	<input type="text"><br>
-  	<input id="Login-button" type="button" value="회원가입">
-  	<input id="Cancel-button"type="button" value="취소">
-  	
+  	<label> NAME </label> <br>
+  		<input id="name" type="text"/> <br>
+  	<label>ID</label> <br>
+  		<input id="userid" type="text"/><br>
+  	<label>PASSWORD</label><br>
+  		<input id="passwd" type ="text"/> <br>
+    <label>ADDRESS</label><br>
+  		<input id="addr" type="text"/> <br>
+  	<label>SSN</label><br>
+	  	<input id="ssn" type="text"/> <br>
+	  	
+	  	<input id="Join-button" type="button" value="회원가입">
+	  	<input id="Cancel-button"type="button" value="취소">
   </form>	
   </article>
 </section>
@@ -102,21 +110,39 @@ footer {
 </footer>
 	
 <script type="text/javascript">
-$('#a-first').click(function(){
-	   alert("Join!"); 
-	});
-$('#a-second').click(function(){
-	   alert("Login"); 
-	});
-$('#a-third').click(function(){
-	  alert("..."); 
-	});	
-$('#Login-button').click(function(){
-	alert("Login!")
+	$('#a-first').click(function(){alert("Join")})
+	$('#a-second').click(function(){alert("Login")})
+	$('#a-third').click(function(){ alert("...")})
+	$('#Join-button').click(function(){
+		alert('입력된 이름 : ' + $('#name').val())
+		let member = {name:$('#name').val(),//json
+			userid: $('#userid').val(),
+			passwd: $('#passwd').val(),
+			ssn: $('#ssn').val(),
+			addr: $('#addr').val()}//위에까지를 셋팅해서 보낸다.
+		alert('입력된 주민번호 :'+ member.ssn)
+		$.ajax({
+			url: "/join",
+			type:'post',
+			data: JSON.stringify(member),
+			dataType: 'json',
+			contentType:'application/json',
+			success: function(returnMember){
+				alert(returnMember.name+'님 회원가입 성공!!')
+			},
+			error: function(){
+				alert('회원가입 실패')
+		}
+	})
 })
-$('#Cancel-button').click(function(){
-	alert(" Cancel!")
-})
+	$('#Cancel-button').click(function(){alert("Canel!")})
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
