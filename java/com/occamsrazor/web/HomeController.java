@@ -10,5 +10,5 @@ public class HomeController {
 	@GetMapping("/")
 	public String hello() {
 		return "index.html";
-	}
+	}//페이지가 바뀌고
 }

@@ -1,9 +1,12 @@
 package com.occamsrazor.web.member;
 
+import org.springframework.stereotype.Service;
+@Service
 public class MemberServiceImpl implements MemberService{
 	
 	private Member[] members;
 	private int count;
+	
 	public MemberServiceImpl() {
 		members = new Member[5];
 		count = 0;
@@ -15,73 +18,40 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member[] list() {
+	public Member[] list(Member member) {
 		return members;
 	}
 
-	@Override
-	public Member[] searchByName(String name) {
-		Member[] returnMember = null;
-		int searchCount = count(name);
-		if(searchCount !=0) {
-			returnMember = new Member[searchCount];
-			int j=0;
-			for(int i=0; i<count; i++) {
-				if(name.equals(members[i].getName())) {
-					returnMember[j] =  members[i];
-					j++;
-					if(searchCount == j);
-					break;
-				}
-			}
-		}
-		return returnMember;
-	}
-
-	@Override
-	public Member[] searchByGender(String gender) {
-		return null;
-	}
 
 	@Override
 	public Member detail(String userid) {
-		Member member = new Member();
+		Member returnMember = null;
 		for(int i=0; i<count; i++) {
 			if(userid.equals(members[i].getUserid())) {
-				members[i].equals(member.getUserid());
+				returnMember = members[i];
+				break;
 			}
 		}
-		return member;
+		return returnMember;
 	}
 
 	@Override
 	public int count() {
 		return count;
 	}
-
 	@Override
-	public int count(String name) {
-		int searchCount =0;
+	public boolean login(Member member) {
+		boolean ok = false;
 		for(int i=0; i<count; i++) {
-			if(name.equals(members[i].getName())) {
-				searchCount++;
-			}
-		}
-	return searchCount;
-	}
-
-	@Override
-	public Member login(Member member) {
-		Member returnMember = null;
-		for(int i=0;i<count; i++) {
 			if(member.getUserid().equals(members[i].getUserid())&&
 					member.getPasswd().equals(members[i].getPasswd())) {
-				returnMember  =  members[i];
+				ok = true;
+				break;
 			}
 		}
-		
-		return returnMember;
+		return ok;
 	}
+
 
 	@Override
 	public void update(Member member) {
@@ -91,22 +61,18 @@ public class MemberServiceImpl implements MemberService{
 				break;
 			}
 		}
-		
 	}
 
 	@Override
 	public void delete(Member member) {
 		for(int i=0; i<count; i++) {
-			if(member.getUserid().equals(members[i].getUserid())&&
+			if(member.getUserid().equals(members[i].getUserid())
+					&&
 					member.getPasswd().equals(members[i].getPasswd())) {
-				members[i] = members[count -1];
-				members[count-1]=null;
+				members[i] = members[count-1];
+				members[count-1] = null;
 				count--;
 			}
 		}
-		
-		
 	}
-	
-	
 }
