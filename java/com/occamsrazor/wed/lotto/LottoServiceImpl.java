@@ -35,8 +35,4 @@ public class LottoServiceImpl implements LottoService{
 		}
 		return null;
 	}
-	
-	
-	
-	
 }
