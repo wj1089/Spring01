@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class Grade {
-	private String userid, korean,english,meth,java;
+	private String userid, korean,english,math,java;
 }

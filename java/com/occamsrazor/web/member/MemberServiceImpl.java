@@ -13,7 +13,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public void add(Member member) {
-		member = members[count];
+		members[count] = member;
 		count++;
 	}
 
@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
 		Member returnMember = null;
 		for(int i=0; i<count; i++) {
 			if(userid.equals(members[i].getUserid())) {
-				returnMember = members[i];
+			   returnMember = members[i];
 				break;
 			}
 		}

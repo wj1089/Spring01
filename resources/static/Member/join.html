@@ -78,17 +78,12 @@ footer {
   <nav>
     <ul>
       <li><a id ="a-first" href="#">join</a></li>
-      <li><a id ="a-second"href="index.html">login</a></li>
+      <li><a id ="a-second"href="../index.html">login</a></li>
       <li><a id ="a-third" href="#">...</a></li>
- 
-      
     </ul>
   </nav>
   
   <article>
-  <div id="title-container">
-				<h1>회원가입</h1>
-  </div>
   <form action="#">
   	<label> NAME </label> <br>
   		<input id="name" type="text"/> <br>
@@ -111,20 +106,10 @@ footer {
   <p>Footer</p>
 </footer>
 	
-	
-
-	
-	
-<script type="text/javascript">
-	$('#a-first').click(function(){alert("Join")})
-	$('#a-second').click(function(){alert("Login")})
-	$('#a-third').click(function(){ alert("...")})
-	
-	
-	$('#Join-button').click(function(){
-		let m = {}
+<script>
+	$('#Join-button').click(e =>{
+		e.preventDefault()
 		$.ajax({
-			
 			url: '/member/join',
 			type:'post',//4개 중 하나 사용
 			data: JSON.stringify({
@@ -134,22 +119,24 @@ footer {
 				ssn: $('#ssn').val(),
 				addr: $('#addr').val()}),/* 제이쿼리로 가져와서 제이스로 바꾼다 */
 				//위에까지를 셋팅해서 보낸다.
-		 	datatype: 'json', /* 자바에서는 json똑같다 */
+		 	dataType: 'json', /* 자바에서는 json똑같다 */
 			contentType:'application/json',
-			success: function(message){
-				if(message === 'SUCCESS'){
+			success: d => {
+				if(d === 'SUCCESS'){
 					location.href="../index.html"
 				}else{
 					location.href="join.html"
 				}
 			},
-			error: function(){
-				alert('네트워킹 실패')
+			error: (request,status,error)=>{
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
+
 			}
 		})
 	})
-	$('#cancel-button').click(function(){
-		alert('취소 버튼 클릭')
+	$('#cancel-button').click(e =>{
+			e.preventDefault()
+			alert('취소 버튼 클릭')
 })
 </script>
 </body>

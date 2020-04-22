@@ -78,9 +78,8 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id ="a-first" href="member/join.html">join</a></li>
-      <li><a id ="a-second"href="../index.html">login</a></li>
-      <li><a id ="a-third" href="#">...</a></li>
+      <li><a id ="Join_a" >join</a></li>
+      <li><a id ="Login_a">login</a></li>
     </ul>
   </nav>
   
@@ -92,7 +91,6 @@ footer {
   	<input id="passwd" type="text"><br><br>
   	<input id="Login-button" type="button" value="로그인">
   	<input id="Cancel-button" type="button" value="취소">
-  	<input id="Join-button" type="button" value="Join">
   	
   </form>	
   </article>
@@ -104,26 +102,43 @@ footer {
 	
 <script type="text/javascript">
 
-$('#Login-button').click(function(){
+$("#Join_a")
+		.css('cursor','pointer')
+		.click(e=>{
+			e.preventDefault()
+			location.href = "member/join.html"//Lazy
+})
+
+$("#Login_a")
+		.css('cursor','pointer')
+		.click(e=>{
+			e.preventDefault()
+			location.href = "index.html"//Lazy
+})
+
+
+$('#Login-button').click(e =>{
+	e.preventDefault()
 	 $.ajax({
 		url : '/member/login',
 		type: 'post',
-		data: JSON.stringify({userid:$('#userid').val(),
-							  passwd:$('#passwd').val()}),
+		data: JSON.stringify(
+				{userid:$('#userid').val(),
+				 passwd:$('#passwd').val()}),
 		dataType : 'json',
 		contentType:'application/json',
-		success:function(message){
-		if(message === 'SUCCESS'){
-			location.href="grade/register.html"
-			
-		}else{
-			alert('다시 로그인을 해주세요')
-				location.href="index.html"'
+		success: d =>{
+			if(d === 'SUCCESS'){
+					location.href="grade/register.html"
+				
+			}else{
+					alert('다시 로그인을 해주세요')
+					location.href="index.html"
+				}
+			},
+			error : (req, x, err) =>{
+				alert(req.status + "\n" + req.responseText + "\n" + err)
 			}
-		},
-		error : function(){
-			alert("Networking Error!")
-		}
 	})
 })
 $('#Cancel-button').click(function(){

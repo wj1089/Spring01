@@ -72,15 +72,12 @@ footer {
 <body>
 
 <header>
-  <h2>점수 등록</h2>
+  <h2>로또 구매</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-     
- 
-      
     </ul>
   </nav>
   
@@ -88,17 +85,11 @@ footer {
   <form action="#">
   	<label> ID </label> <br>
   		<input id="userid" type="text"/> <br>
-  	<label> Korean </label> <br>
-  		<input id="korean" type="text"/><br>
-  	<label> English </label><br>
-  		<input id="english" type ="text"/> <br>
-    <label> Math </label><br>
-  		<input id="math" type="text"/> <br>
-  	<label> Java </label><br>
-	  	<input id="Java" type="text"/> <br>
-	  	<input id="Register-button" type="button" value="점수 등록">
-	  	<input id="Credit-button" type="button" value="학점보기">
-	  	<div></div>
+  	<label> 로또 번호 입력(,로 분리해주세요) </label> <br>
+  		<input id="lottoNumber" type="text"/><br>
+  		
+	  	<input id="Buy-button" type="button" value="로또 구매">
+	  	<input id="Result-button" type="button" value="당첨 결과">
   </form>	
   	  	<div id="result"></div>
   </article>
@@ -106,46 +97,44 @@ footer {
 	<footer>
 		<p>Footer</p>
 	</footer>
-<script>
-	$('#Register-button').click( e =>{//e =>(람다)
+<script type="text/javascript">
+		$('Buy-button').click( e=> {
 		e.preventDefault()
-		$('#result').html('')
+		$('result').html('')
 		$.ajax({
-			url : '/grade/register',
-			type : 'post',
+			url : '/lotto/register'
+			type : 'post'
 			data : JSON.stringify({
 				userid : $('#userid').val(),
-				korean : $('#korean').val(),
-				english :$('#english').val(),
-				math : $('#math').val(),
-				java : $('#Java').val()}),
+				lottoNumber : $('#lottoNumber').val(),
+			})
 			dataType : 'json',
-			contentType : 'application/json',
+			contantType : 'application/json',
 			success : d => {
-					alert(d)
+				alet(d)
 			},
-				error : (req, x, err) => {
-					alert(req.status + "\n" + req.responseText + "\n" + err)
+			error : () => {
+				alert(req.status + "\n" + req.responseText + "\n" + err)			
 			}
 		})
 	})
-	$('#Credit-button').click(e => {
-		e.preventDefault()
+		$('#Result-button').click( e =>{
+			e.preventDefault()
+			alert('로또 결과')
 		$.ajax({
-			url : '/grade/report/'+$('#userid').val(),
-			type : 'get',
-			dataType : 'json',
-			contentType : 'application/json',
-			success : d => {
-		      	$('#result').html('<h3>학점 :'+d+'</h3>')
-
-			},
-			error :(req, x, err) => {
-				alert(req.status + "\n" + req.responseText + "\n" + err)
-			}
+			url : '/lotto/Buy'
+			type : 'post'
+			data : JSON.stringify({
+				userid : $('userid').val(),
+				lottoNumber : $('lottoNumber').val()}),
+				dataType : 'json',
+				contentType:'application/json',
+				success: d =>{
+					
+				}
 		})
-	})
-		</script>
+		})
+			</script>
 
 </body>
 </html>

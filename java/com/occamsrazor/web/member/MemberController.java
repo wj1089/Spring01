@@ -17,15 +17,15 @@ public class MemberController {
 	@PostMapping("/join")
 	public Messenger add(@RequestBody Member member) {//internet server에 연결하는부분
 		int current = memberService.count();
+		String s="";
 		memberService.add(member);//이걸 꼭 참고해야한다. 그래야 어떤걸가져올지 알음
 		return(memberService.count()==(current+1))?Messenger.SUCCESS : Messenger.FAIL;
 
 		
 	}//페이지 그대로 남아있는다
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public Messenger login(@RequestBody Member member) {
-
 		return (memberService.login(member))? Messenger.SUCCESS:Messenger.FAIL;
 	}
 	@GetMapping("/list")
