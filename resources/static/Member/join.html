@@ -71,15 +71,13 @@ footer {
 </head>
 <body>
 <header>
-  <h2>회원 가입</h2>
+  <h2>관리자 등록</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id ="a-first" href="#">join</a></li>
-      <li><a id ="a-second"href="../index.html">login</a></li>
-      <li><a id ="a-third" href="#">...</a></li>
+      <li><a id ="home_a">홈으로</a></li>
     </ul>
   </nav>
   
@@ -96,8 +94,8 @@ footer {
   	<label> SSN </label><br>
 	  	<input id="ssn" type="text"/> <br>
 	  	
-	  	<input id="Join-button" type="button" value="회원가입">
-	  	<input id="Cancel-button"type="button" value="취소">
+	  	<input id="join-button" type="button" value="회원가입">
+	  	<input id="cancel-button"type="button" value="취소">
   </form>	
   </article>
 </section>
@@ -107,7 +105,13 @@ footer {
 </footer>
 	
 <script>
-	$('#Join-button').click(e =>{
+$('#home_a')
+	.css('cursor','pointer')
+	.click(e=>{
+		e.preventDefault()
+		location.href = "../index.html"
+})
+	$('#join-button').click(e =>{
 		e.preventDefault()
 		$.ajax({
 			url: '/member/join',
@@ -130,7 +134,6 @@ footer {
 			},
 			error: (request,status,error)=>{
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
-
 			}
 		})
 	})

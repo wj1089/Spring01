@@ -9,29 +9,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.occamsrazor.web.util.Messenger;
 
-@RestController
-@RequestMapping("/member")
-public class MemberController {
-	@Autowired MemberService memberService;
-	
-	@PostMapping("/join")
-	public Messenger add(@RequestBody Member member) {//internet server에 연결하는부분
-		int current = memberService.count();
-		String s="";
-		memberService.add(member);//이걸 꼭 참고해야한다. 그래야 어떤걸가져올지 알음
-		return(memberService.count()==(current+1))?Messenger.SUCCESS : Messenger.FAIL;
-
-		
-	}//페이지 그대로 남아있는다
-	
+	@RestController
+	@RequestMapping("/member")
+	public class MemberController {
+		@Autowired MemberService memberService;
+		//@service와 연결을위해 new대신에서  @Autowired를 쓰인다
+		@PostMapping("/join")
+		public Messenger add(@RequestBody Member member) {
+			int current = memberService.count();
+			String s = "";
+			memberService.add(member);
+			return (memberService.count()==(current+1))?Messenger.SUCCESS:Messenger.FAIL;
+		}
 	@PostMapping("/login")
 	public Messenger login(@RequestBody Member member) {
-		return (memberService.login(member))? Messenger.SUCCESS:Messenger.FAIL;
+		return (memberService.login(member))?Messenger.SUCCESS:Messenger.FAIL;
 	}
 	@GetMapping("/list")
-	public Member[] list(@RequestBody Member member) {
-		Member[] members = new Member[5];
-		return members;
+	public Member[] list(@RequestBody String name) {
+		Member[] returMember = new Member[5];
+		return returMember;
 	}
 	@GetMapping("/detail")
 	public Member detail(@RequestBody String name) {
