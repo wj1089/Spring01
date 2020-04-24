@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Lotto{
-		private String userid, lottoNumber ;
+		private String userid,lotto;
 	}
 	
 

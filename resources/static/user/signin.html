@@ -78,39 +78,36 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id ="home_a">홈으로</a></li>   
+		<li><a id="home_a">홈으로</a></li>
     </ul>
   </nav>
   
   <article>
-  <form action="#">
-  	<label> ID </label> <br>
-  	<input id= "userid" type="text"><br><br>
-  	<label>PASSWORD</label> <br>
-  	<input id="passwd" type="text"><br><br>
-  	<input id="login-button" type="button" value="로그인">
-  	<input id="cancel-button" type="button" value="취소">
-  	
-  </form>	
+   <form action="#">
+   	<label>ID </label> <br>
+   	<input id="userid" type="text"> <br>
+   	<label>PASSWORD</label><br>
+   	<input id="passwd" type="text"><br>
+   	<input id="login_button" type="button" value="로그인">
+   	<input id="cancel_button" type="button" value="취소">
+   	
+   </form>
   </article>
 </section>
 
 <footer>
   <p>Footer</p>
 </footer>
-	
-<script type="text/javascript">
-		
+<script>
 $('#home_a')
 	.css('cursor','pointer')
-	.click(e=>{
-		e.preventDefault()
-		location.href = "../index.html"
+	.click(e => {
+	e.preventDefault()
+	location.href = "../index.html"
 })
-$('#login-button')
-	.click(e=>{
-		e.preventDefault()
-$.ajax({
+$('#login_button').click(e=>{
+	e.preventDefault()
+	$.ajax({
 	url : '/user/login',
 	type : 'post',
 	data : JSON.stringify({
@@ -121,21 +118,21 @@ $.ajax({
 	contentType : 'application/json',
 	success : d => {
 		if(d.messenger === 'SUCCESS'){
-			location.href = "mypage.html"
+			sessionStorage.setItem('userid',d.user.userid)
+			location.href = 'mypage.html'
 		}else{
-			location.href = "signin.html"
+			location.href = 'signin.html'
 		}
 	},
 	error : (r, x, e) => {
 		alert(r.status)
 	}
 })
-	})
-
-
-
-
+})
 
 </script>
 </body>
 </html>
+
+
+

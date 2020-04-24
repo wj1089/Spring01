@@ -78,6 +78,7 @@ footer {
 <section>
   <nav>
     <ul>
+       <li><a id ="home_a">홈으로</a></li>
     </ul>
   </nav>
   
@@ -98,26 +99,35 @@ footer {
 		<p>Footer</p>
 	</footer>
 <script type="text/javascript">
-		$('Buy-button').click( e=> {
-		e.preventDefault()
-		$('result').html('')
-		$.ajax({
-			url : '/lotto/register'
-			type : 'post'
-			data : JSON.stringify({
-				userid : $('#userid').val(),
-				lottoNumber : $('#lottoNumber').val(),
-			})
+
+		$('#home_a')
+		.css('cursor','pointer')
+		.click(e=>{
+			e.preventDefault()
+			location.href = "/"
+	})
+
+		$('Buy-button')
+			.click( e=> {
+			e.preventDefault()
+			$('result').html('')
+			$.ajax({
+				url : '/lotto/register'
+				type : 'post'
+				data : JSON.stringify({
+					userid : $('#userid').val(),
+					lottoNumber : $('#lottoNumber').val(),
+				})
 			dataType : 'json',
 			contantType : 'application/json',
 			success : d => {
-				alet(d)
-			},
+					alet(d)
+				},
 			error : () => {
-				alert(req.status + "\n" + req.responseText + "\n" + err)			
-			}
+					alert(req.status + "\n" + req.responseText + "\n" + err)			
+				}
+			})
 		})
-	})
 		$('#Result-button').click( e =>{
 			e.preventDefault()
 			alert('로또 결과')

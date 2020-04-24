@@ -70,6 +70,7 @@ footer {
 </style>
 </head>
 <body>
+
 <header>
   <h2>사용자 가입</h2>
 </header>
@@ -77,33 +78,32 @@ footer {
 <section>
   <nav>
     <ul>
-      <li><a id ="home_a">홈으로</a></li>   
+      <li><a id="home_a">홈으로</a></li>
     </ul>
   </nav>
   
   <article>
-  <form action="#">
-  	<label> NAME </label> <br>
-  		<input id="name" type="text"/> <br>
-  	<label> ID </label> <br>
-  		<input id="userid" type="text"/><br>
-  	<label> PASSWORD </label><br>
-  		<input id="passwd" type ="text"/> <br>
-    <label> ADDRESS </label><br>
-  		<input id="addr" type="text"/> <br>
-  	<label> SSN </label><br>
-	  	<input id="ssn" type="text"/> <br>
-	  	
-	  	<input id="join-button" type="button" value="사용자 가입">
-	  	<input id="cancel-button"type="button" value="가입 취소">
-  </form>	
+   <form action="#">
+   	<label>NAME </label> <br>
+   	<input id="name" type="text"/> <br>
+   	<label>ID</label><br>
+   	<input id="userid" type="text"/><br>
+   	<label>PASSWORD</label><br>
+   	<input id="passwd" type="text"/><br>
+   	<label>SSN</label><br>
+   	<input id="ssn" type="text"><br>
+   	<label>ADRESS</label><br>
+   	<input id="addr" type="text"><br><br>
+   	<input id="join_button" type="button" value="사용자 가입">
+   	<input id="cancel_button" type="button" value="가입 취소">
+   	
+   </form>
   </article>
 </section>
 
 <footer>
   <p>Footer</p>
 </footer>
-	
 <script>
 $('#home_a')
 	.css('cursor','pointer')
@@ -111,8 +111,7 @@ $('#home_a')
 	e.preventDefault()
 	location.href = "../index.html"
 })
-
-$('#join-button')
+$('#join_button')
 	.click(e=> {
 	e.preventDefault()
 	$.ajax({
@@ -128,20 +127,23 @@ $('#join-button')
 		contentType: 'application/json',
 		success: d =>{
 			if(d === 'SUCCESS'){
-				alert("성공")
-				location.href = "signin.html"
+				location.href = 'signin.html'
 			}else{
-				alert("실패")
-				location.href = "signup.html"
+				location.href = 'signup.html'
 			}
 				
 		},
 		error: (r, x, e)=>{
 			alert(r.status)
 		}
+		
 	})
+	
 })
 
 </script>
 </body>
 </html>
+
+
+
