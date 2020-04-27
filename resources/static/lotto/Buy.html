@@ -89,8 +89,8 @@ footer {
   	<label> 로또 번호 6자리 입력(한자리마다 ,로 분리해주세요) </label> <br>
   		<input id="lottoNumber" type="text"/><br>
   		
-	  	<input id="Buy-button" type="button" value="로또 구매">
-	  	<input id="Result-button" type="button" value="당첨 결과">
+	  	<input id="buy-button" type="button" value="로또 구매">
+	  	<input id="result-button" type="button" value="당첨 결과">
   </form>	
   	  	<div id="result"></div>
   </article>
@@ -107,24 +107,26 @@ footer {
 			location.href = "/"
 	})
 
-		$('Buy-button')
-			.click( e=> {
+		$('#buy-button').click(e=>{
 			e.preventDefault()
-			$('result').html('')
 			$.ajax({
-				url : '/lotto/register'
-				type : 'post'
-				data : JSON.stringify({
-					userid : $('#userid').val(),
-					lottoNumber : $('#lottoNumber').val(),
-				})
-			dataType : 'json',
-			contantType : 'application/json',
-			success : d => {
-					alet(d)
+				url:'/lotto/buy',
+				type:'post',
+				data:JSON.stringify(
+						{userid:$('#userid').val(),
+							lotto:$('#lotto').val()}),
+				dataType:'json',
+				contentType:'application/json',
+				success: d=>{
+					if(d==='SUCCESS'){
+						alert("로또 구매를 완료했습니다.")
+					}else{
+						alert("잘못입력했습니다.")
+						location.href="buy.html"
+					}
 				},
-			error : () => {
-					alert(req.status + "\n" + req.responseText + "\n" + err)			
+				error: (req,x,err)=>{
+					alert(req.status+"\n"+req.reponseText+"\n"+err)
 				}
 			})
 		})
@@ -136,7 +138,7 @@ footer {
 			type : 'post'
 			data : JSON.stringify({
 				userid : $('userid').val(),
-				lottoNumber : $('lottoNumber').val()}),
+				lotto : $('lotto').val()}),
 				dataType : 'json',
 				contentType:'application/json',
 				success: d =>{

@@ -23,8 +23,8 @@ public class LottoController {
 			lottoService.add(lotto);
 			return (lottoService.count() == current+1)? Messenger.SUCCESS:Messenger.FAIL;
 		}
-		@GetMapping("/lottoNumber")
-		public String lottoNumber() {
+		@GetMapping("/lotto")
+		public String lotto() {
 			return lottoService.lottoNum();
 		}
 		

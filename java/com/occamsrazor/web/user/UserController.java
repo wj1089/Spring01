@@ -1,6 +1,8 @@
 package com.occamsrazor.web.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,14 @@ public class UserController {
 		public Messenger join(@RequestBody User user) {
 			int count = userServer.count();
 			userServer.add(user);
-			return (userServer.count()==count +1)?Messenger.SUCCESS:Messenger.FAIL;
+//			return (userServer.count()==count +1)?Messenger.SUCCESS:Messenger.FAIL;
+			return Messenger.SUCCESS;
 		}
+		@GetMapping("/list")
+		public List<User> list(){
+			return userServer.readFile();
+		}
+		
 		@PostMapping("/login")
 		public Map<String, Object> login (@RequestBody User user){
 			Map<String, Object> returnMap = new HashMap<>();
@@ -37,11 +45,6 @@ public class UserController {
 				returnMap.put("messenger", Messenger.FAIL);
 			}
 			return returnMap;
-		}
-		@PostMapping("/list")
-		public User[] list(@RequestBody User user) {
-			User[] returnUser = new User[5];
-			return returnUser;
 		}
 		
 		@GetMapping("/detail/{userid}")
